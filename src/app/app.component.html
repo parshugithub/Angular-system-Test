@@ -1,80 +1,119 @@
 
+  <div class="page-wrapper bg-gra-03 p-t-45 p-b-50">
+    <div class="wrapper wrapper--w790">
+        <div class="card card-5">
 
-
-    <div class="page-wrapper bg-gra-03 p-t-45 p-b-50">
-        <div class="wrapper wrapper--w790">
-            <div class="card card-5">
-                <div class="card-heading">
-                    <h2 class="title">Registration Form</h2>
+  <div class="container">
+    <div class="row">
+            <div class="card">
+                <div class="card-header" style="text-align: center;margin-top: 2rem;">
+                    <h3>Registration Form</h3>
                 </div>
                 <div class="card-body">
-                    <form #Registerform="ngForm" id="main_form" (submit)="register()" autocomplete="on">
+                    <form class="form" #registerForm="ngForm" [appMatchPassword]="['Password', 'ConfirmPassword']"
+                        (ngSubmit)="registerForm.form.valid && onSubmit()" novalidate>
                         <div class="form-row m-b-55">
-                            <div class="name">Name</div>
-                            <div class="value">
-                                <div class="row row-space">
-                                    <div class="col-2">
-                                        <div class="input-group-desc">
-                                            <input class="form-control" type="text" name="FirstName" [(ngModel)]="user.FirstName" required #FirstName="ngModel">
 
-                                            <label class="label--desc">first name</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-2">
-                                        <div class="input-group-desc">
-                                            <input class="form-control" type="text" name="LastName" [(ngModel)]="user.LastName" required #LastName="ngModel">
-
-                                            <label class="label--desc">last name</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class=" form-group">
+                            <label>Name</label>
+                            <div>
+                            <input type="text" class="form-control" [(ngModel)]="userModal.FirstName" name="FirstName"
+                                #FirstName="ngModel" required minlength=3 maxlength=16>
+                            <span class="text-danger"
+                                *ngIf="(FirstName.touched || registerForm.submitted) && FirstName.errors?.required">
+                                FirstName is required
+                            </span>
+                            <span class="text-danger"
+                                *ngIf="(FirstName.touched || registerForm.submitted) && FirstName.errors?.minlength">
+                                minimum length 3 is required
+                            </span>
+                        
+                        </div>                        </div>
+                        <div class=" form-group">
+                          <label>LastName</label>
+                          <div>
+                          <input type="text" class="form-control" [(ngModel)]="userModal.LastName" name="LastName" minlength=3 maxlength=16
+                              #LastName="ngModel" required>
+                          <span class="text-danger"
+                              *ngIf="(LastName.touched || registerForm.submitted) && LastName.errors?.required">
+                              LastName is required
+                          </span>
+                          <span class="text-danger"
+                          *ngIf="(LastName.touched || registerForm.submitted) && LastName.errors?.minlength">
+                          minimum length 3 is required
+                      </span>
                         </div>
-                        <div class="form-row">
-                          <div class="name">Email</div>
-                          <div class="value">
-                              <div class="input-group">
-                                  <input class="form-control" type="email" name="EmailId" [(ngModel)]="user.EmailId" required #EmailId="ngModel"
-                                  >
-                              </div>
-                          </div>
                       </div>
-                        <div class="form-row">
-                            <div class="name">ContactNumber</div>
-                            <div class="value">
-                                <div class="input-group">
-                                    <input class="form-control" type="text" [(ngModel)]="user.ContactNumber" name="ContactNumber" required #ContactNumber="ngModel"> 
-                                </div>
-                            </div>
-                        </div>
-                       
-                    
-                      
-                        <div class="form-row m-b-55">
-                          <div class="name">Password</div>
-                          <div class="value">
-                              <div class="row row-space">
-                                  <div class="col-2">
-                                      <div class="input-group-desc">
-                                          <input class="form-control" type="text" name="Password" [(ngModel)]="user.Password" required #Password="ngModel">
-                                          <label class="label--desc">Password</label>
-                                      </div>
-                                  </div>
-                                  <div class="col-2">
-                                      <div class="input-group-desc">
-                                          <input class="form-control" type="text" name="ConfirmPassword"  [(ngModel)]="user.ConfirmPassword" required #ConfirmPassword="ngModel">
-                                          <label class="label--desc">ConfirmPassword</label>
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
+                      <div class=" form-group">
+                        <label>ContactNumber</label>
                         <div>
-                            <button class="btn btn--radius-2 btn--red" type="submit">Register</button>
+                        <input type="text" class="form-control" [(ngModel)]="userModal.ContactNumber" name="ContactNumber" pattern="^[7-9][0-9]{9}$" 
+                            #ContactNumber="ngModel" required maxlength="10" minlength="10">
+                        <span class="text-danger"
+                            *ngIf="(ContactNumber.touched || registerForm.submitted) && ContactNumber.errors?.required">
+                            ContactNumber is required
+                        </span>
+                        <span class="text-danger"
+                        *ngIf="(ContactNumber.touched || registerForm.submitted) && ContactNumber.errors?.pattern">
+                        Please enter valid pattern
+                    </span>
+                    </div>
+                    </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <div>
+                            <input type="text" class="form-control" [(ngModel)]="userModal.EmailId" name="EmailId"
+                                #EmailId="ngModel" required email>
+                            <span class="text-danger"
+                                *ngIf="(EmailId.touched || registerForm.submitted) && EmailId.errors?.required">
+                                Email is required
+                            </span>
+                            <span class="text-danger" *ngIf="EmailId.touched && EmailId.errors?.EmailId">
+                                Enter a valid EmailId address
+                            </span></div>
+                        </div>
+                     
+                        <div class="form-group">
+                            <label>Password</label>
+                            <div>
+                            <input type="Password" class="form-control" [(ngModel)]="userModal.Password" name="Password"
+                                #Password="ngModel" appPasswordPattern required>
+                            <span class="text-danger"
+                                *ngIf="(Password.touched || registerForm.submitted) && Password.errors?.required">
+                                Password is required
+                            </span>
+                            <span class="text-danger" *ngIf="Password.touched && Password.errors?.invalidPassword">
+                                Password should have minimum 8 characters, at least 1 uppercase letter, 1 lowercase
+                                letter and 1 number
+                            </span></div>
+                        </div>
+                        <div class="form-group">
+                            <label>Confirm Password</label>
+                            <div>
+                            <input type="password" class="form-control" [(ngModel)]="userModal.ConfirmPassword"
+                                name="ConfirmPassword" #ConfirmPassword="ngModel" required>
+                            <span class="text-danger"
+                                *ngIf="(ConfirmPassword.touched || registerForm.submitted) && ConfirmPassword.errors?.required">
+                                Confirm Password is required
+                            </span>
+                            <span class="text-danger"
+                                *ngIf="ConfirmPassword.touched && ConfirmPassword.errors?.passwordMismatch">
+                                Passwords doesnot match
+                            </span></div>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" [disabled]="registerForm.form.invalid" class="btn btn-gradient-primary"  style="background-color: #93c47dff !important;margin-left: 18rem;
+                            width: 6rem !important;
+                            text-align: center;
+                            margin-bottom: -1rem;">Register</button>
+                        </div>
                         </div>
                     </form>
                 </div>
             </div>
-        </div>
+        
     </div>
-
+</div>
+</div>
+</div>
+</div>

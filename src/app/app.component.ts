@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+declare var NgForm:any;
+
 import { User } from './model/user';
 
 @Component({
@@ -8,9 +10,20 @@ import { User } from './model/user';
 })
 export class AppComponent {
   title = 'interviewAngular';
-  user = new User();
+  // user = new User();
+  userModal = new User();
 
-  register(){
+  // register(){
+  //   console.log("this is object customer",this.user);
 
+  // }
+   
+
+
+  constructor() { }
+
+  onSubmit() {
+    alert('Form Submitted succesfully!!!\n Check the values in browser console.');
+    console.log(this.userModal);
   }
 }
